@@ -1,16 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.willbegod.readmore.view.ReadMoreView
+                    android:id="@+id/rmvNormal"
+                    style="@style/CommonReadMoreStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:collapseBtnText="축소"
+                    app:expandBtnText="확장"
+                    app:btnColor="@color/purple_500"
+                    app:btnSize="15sp"
+                    app:colMaxLines="2"
+                    app:originalText="ReadMoreView 는 제가 처음으로 만든 라이브러리 입니다. 업무에 있어 더보기 버튼으로 확장 가능한 TextView 의 구현이 필요한 모든 사람들이 두루 썼으면 좋겠습니다. :)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <com.willbegod.readmore.view.ReadMoreView
+                    android:id="@+id/rmvToButton"
+                    style="@style/CommonReadMoreStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:collapseBtnText=""
+                    app:expandBtnText=""
+                    app:btnColor="@color/purple_500"
+                    app:btnSize="15sp"
+                    app:colMaxLines="2"
+                    app:originalText="ReadMoreView 는 제가 처음으로 만든 라이브러리 입니다. 업무에 있어 더보기 버튼으로 확장 가능한 TextView 의 구현이 필요한 모든 사람들이 두루 썼으면 좋겠습니다. :)"
+                    app:layout_constraintTop_toBottomOf="@id/rmvNormal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/btnToggle"
+                    app:layout_constraintHorizontal_weight="5"/>
+
+                <Button
+                    android:id="@+id/btnToggle"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="토글"
+                    app:layout_constraintTop_toTopOf="@id/rmvToButton"
+                    app:layout_constraintBottom_toBottomOf="@id/rmvToButton"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/rmvToButton"
+                    app:layout_constraintHorizontal_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvReadMoreState1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/rmvToButton"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    tools:text="ReadMore 1 State: "/>
+
+                <TextView
+                    android:id="@+id/tvReadMoreState2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvReadMoreState1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    tools:text="ReadMore 2 State: "/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

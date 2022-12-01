@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ReadMoreView">
+        <attr name="originalText" format="string" />
+        <attr name="colMaxLines" format="integer" />
+        <attr name="expandBtnText" format="string" />
+        <attr name="collapseBtnText" format="string" />
+        <attr name="btnColor" format="color|reference" />
+        <attr name="btnSize" format="dimension" />
+    </declare-styleable>
+</resources>
