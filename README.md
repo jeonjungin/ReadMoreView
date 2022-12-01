@@ -1,11 +1,12 @@
 # ReadMoreView
 
-유튜브 앱과 같이 '더보기' 기능이 포함된 TextView 입니다.\
+유튜브 앱과 같이 '더보기' 기능이 포함된 TextView 입니다.
 AppCompatTextView 를 상속받아 구현하여 기존 TextView 와 같이 TextSize, color, font 등의 속성 적용이 가능합니다.
+
+<img src="https://user-images.githubusercontent.com/40448001/204996359-8cac44d6-948a-416a-b800-852c09b91f77.gif">
 
 ## xml
 
-### preview
 ```xml
 
 <com.willbegod.readmore.view.ReadMoreView
@@ -65,8 +66,8 @@ ReadMoreView 축소 상태시 최대 라인 수를 정의합니다.
 
 ### originalText
 
-ReadMoreView 에 표시될 String 전문을 정의합니다.\n
-collapse 상태인 경우 colMaxLines 속성 값에 따라 최대 라인 수 만큼만 표시됩니다.\n
+ReadMoreView 에 표시될 String 전문을 정의합니다.
+collapse 상태인 경우 colMaxLines 속성 값에 따라 최대 라인 수 만큼만 표시됩니다.
 expanded 상태인 경우 String 전문이 표시됩니다.
 ```xml
   app:originalText="원하는 텍스트를 넣어주세요 :)"
@@ -78,7 +79,7 @@ expanded 상태인 경우 String 전문이 표시됩니다.
 
 ### originalText
 
-ReadMoreView 에 표시될 String 전문을 정의합니다.\n
+ReadMoreView 에 표시될 String 전문을 정의합니다.
 xml 속성 originalText 와 동일합니다.
 ```kotlin
   readMoreView.originalText = "원하는 텍스트를 넣어주세요 :)"
@@ -102,7 +103,6 @@ ReadMoreView 의 '축소' 상태 여부를 반환합니다. (Boolean)
 
 ReadMoreView 의 상태를 '확장' 으로 변경합니다.
 이미 확장 상태인 경우 동작하지 않습니다.
-
 ```kotlin
   readMoreView.expand()
 ```
@@ -111,7 +111,6 @@ ReadMoreView 의 상태를 '확장' 으로 변경합니다.
 
 ReadMoreView 의 상태를 '축소' 로 변경합니다.
 이미 축소 상태인 경우 동작하지 않습니다.
-
 ```kotlin
   readMoreView.collapse()
 ```
@@ -119,16 +118,14 @@ ReadMoreView 의 상태를 '축소' 로 변경합니다.
 ### toggle()
 
 ReadMoreView 의 상태를 '반전' 시킵니다.
-
 ```kotlin
   readMoreView.toggle()
 ```
 
 ### setStateChangedListener(listener: ((isExpanded: Boolean) -> Unit)?)
 
-ReadMoreView 의 확장/축소 상태 변경 callback 을 설정합니다.\n
+ReadMoreView 의 확장/축소 상태 변경 callback 을 설정합니다.
 callback 함수는 확장 상태는 true, 축소 상태로 변경되는 경우 false 가 인자로 인입됩니다.
-
 ```kotlin
   readMoreView.setStateChangedLisftener { isExpanded ->
     if (isExpanded) {
@@ -139,9 +136,8 @@ callback 함수는 확장 상태는 true, 축소 상태로 변경되는 경우 f
 
 ### setExpandableChangedListener(listener: ((isExpandable: Boolean) -> Unit?))
 
-ReadMoreView 가 조건을 만족하여 확장/축소 가능 여부 변경 callback 을 설정합니다.\n
+ReadMoreView 가 조건을 만족하여 확장/축소 가능 여부 변경 callback 을 설정합니다.
 원본 String(originalText) 가 View 의 너비에 맞춰 표현될때, 최대 라인 수 (colMaxLines) 를 넘어서는 경우 callback 함수의 인자로 true 가 인입됩니다.
-
 ```kotlin
   readMoreView.setExpandableChangedListener { isExpandable ->
     if (isExpandable) {
