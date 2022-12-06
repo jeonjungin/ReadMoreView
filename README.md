@@ -1,9 +1,34 @@
 # ReadMoreView
 
 유튜브 앱과 같이 '더보기' 기능이 포함된 TextView 입니다.
-AppCompatTextView 를 상속받아 구현하여 기존 TextView 와 같이 TextSize, color, font 등의 속성 적용이 가능합니다.
+기존 TextView 와 같이 TextSize, color, font 등의 속성 적용이 가능합니다.
 
 <img src="https://user-images.githubusercontent.com/40448001/204996359-8cac44d6-948a-416a-b800-852c09b91f77.gif">
+
+## dependency
+
+### 최상위 수준 build.gradle
+
+```gradle
+
+allprojects {
+    repositories {
+      ...
+      maven { url 'https://jitpack.io' }
+    }
+}
+
+```
+
+### app 수준 build.gradle
+
+``` gradle
+
+dependencies {
+    implementation 'com.github.jeonjungin:ReadMoreView:Tag'
+}
+  
+```
 
 ## xml
 
