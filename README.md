@@ -25,7 +25,8 @@ allprojects {
 ``` gradle
 
 dependencies {
-    implementation 'com.github.jeonjungin:ReadMoreView:Tag'
+    implementation 'com.github.jeonjungin:ReadMoreView:v1.0.0'
+    //  v1.0.0 은 최초 버전입니다.
 }
   
 ```
