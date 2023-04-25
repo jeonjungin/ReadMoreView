@@ -27,10 +27,28 @@
                     app:btnColor="@color/purple_500"
                     app:btnSize="15sp"
                     app:colMaxLines="2"
-                    app:originalText="ReadMoreView 는 제가 처음으로 만든 라이브러리 입니다. 업무에 있어 더보기 버튼으로 확장 가능한 TextView 의 구현이 필요한 모든 사람들이 두루 썼으면 좋겠습니다. :)"
+                    app:originalText="다시 남쪽으로 삼백 리를 가면 호미산이라는 곳인데 이 산은 사람이 보지 않을 땐 걸어 다니다가 사람이 알아채면 그대로 주저앉아 평범한 산이 된다."
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
+
+                <com.willbegod.readmore.view.ReadMoreView
+                    android:id="@+id/rmvLocationEnd"
+                    style="@style/CommonReadMoreStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:collapseBtnText="축소"
+                    app:expandBtnText="확장"
+                    app:btnColor="@color/purple_500"
+                    app:btnSize="15sp"
+                    app:btnLocation="end"
+                    app:colMaxLines="2"
+                    app:originalText="구더기가 사람을 만나면 기다란 몸으로 휘감고 대롱을 꽂아 피와 골을 빨아 먹으므로 반드시 피해야한다. 그 벌레가 떨어져 죽으면... 터진 머리에서 이만 마리 황금색 파리떼가 날아올라 비로소 세상을 향해 흩어진다."
+                    app:layout_constraintTop_toBottomOf="@id/rmvNormal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
                 <com.willbegod.readmore.view.ReadMoreView
                     android:id="@+id/rmvToButton"
@@ -44,8 +62,8 @@
                     app:btnColor="@color/purple_500"
                     app:btnSize="15sp"
                     app:colMaxLines="2"
-                    app:originalText="ReadMoreView 는 제가 처음으로 만든 라이브러리 입니다. 업무에 있어 더보기 버튼으로 확장 가능한 TextView 의 구현이 필요한 모든 사람들이 두루 썼으면 좋겠습니다. :)"
-                    app:layout_constraintTop_toBottomOf="@id/rmvNormal"
+                    app:originalText="파도가 밀려와 구덩이를 쓸고 지나간다. 양동이로 퍼 올려 쌓아 놓은 모래 더미를 끌고 가면서 구덩이를 덮는다. 구덩이에 거의 들어찬 모래 위에서 바닷물이 작은 소용돌이를 일으킨다."
+                    app:layout_constraintTop_toBottomOf="@id/rmvLocationEnd"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/btnToggle"
                     app:layout_constraintHorizontal_weight="5"/>
@@ -78,6 +96,15 @@
                     app:layout_constraintTop_toBottomOf="@id/tvReadMoreState1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     tools:text="ReadMore 2 State: "/>
+
+                <TextView
+                    android:id="@+id/tvReadMoreState3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvReadMoreState2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    tools:text="ReadMore 3 State: "/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setCurrentReadMoreStateText() {
         binding.tvReadMoreState1.text = "ReadMoreView 1 : ${getReadMoreStateText(binding.rmvNormal.isExpanded)}"
-        binding.tvReadMoreState2.text = "ReadMoreView 2 : ${getReadMoreStateText(binding.rmvNormal.isExpanded)}"
+        binding.tvReadMoreState2.text = "ReadMoreView 2 : ${getReadMoreStateText(binding.rmvLocationEnd.isExpanded)}"
+        binding.tvReadMoreState2.text = "ReadMoreView 2 : ${getReadMoreStateText(binding.rmvToButton.isExpanded)}"
     }
 
     private fun setToggleBtnClickListener() {
@@ -37,8 +38,12 @@ class MainActivity : AppCompatActivity() {
             binding.tvReadMoreState1.text = "ReadMoreView 1 : ${getReadMoreStateText(isExpanded)}"
         }
 
-        binding.rmvToButton.setStateChangedListener { isExpanded ->
+        binding.rmvLocationEnd.setStateChangedListener { isExpanded ->
             binding.tvReadMoreState2.text = "ReadMoreView 2 : ${getReadMoreStateText(isExpanded)}"
+        }
+
+        binding.rmvToButton.setStateChangedListener { isExpanded ->
+            binding.tvReadMoreState3.text = "ReadMoreView 3 : ${getReadMoreStateText(isExpanded)}"
         }
     }
 

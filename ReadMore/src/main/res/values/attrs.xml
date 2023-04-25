@@ -7,5 +7,11 @@
         <attr name="collapseBtnText" format="string" />
         <attr name="btnColor" format="color|reference" />
         <attr name="btnSize" format="dimension" />
+        <attr name="btnLocation">
+            <enum
+                name="end" value="1"/>
+            <enum
+                name="nextLeft" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>

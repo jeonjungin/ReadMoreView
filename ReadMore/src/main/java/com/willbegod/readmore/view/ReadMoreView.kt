@@ -3,6 +3,7 @@ package com.willbegod.readmore.view
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import android.os.Build
 import android.text.*
 import android.text.method.LinkMovementMethod
@@ -23,6 +24,27 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
         const val defaultMaxLine = Int.MAX_VALUE
         const val defaultColBtnText = "닫기"
         const val defaultExpBtnText = "더보기"
+        const val defaultBtnLocationEnum = 2
+    }
+
+    /**
+     * 확장/축소 버튼 위치 Type
+     *
+     * */
+    sealed class BtnLocation {
+        // 마지막 글자 우측 위치
+        object End: BtnLocation()
+
+        // 다음 줄 위치
+        object NextLine: BtnLocation()
+
+        companion object {
+            internal fun parsing(enumType: Int) = when (enumType) {
+                1 -> End
+                else -> NextLine
+            }
+
+        }
     }
 
     /**
@@ -86,6 +108,8 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
     @ColorInt
     private var btnColor = defaultBtnColor
     private var btnSizePx = textSize.toInt()
+    private var btnLocation: BtnLocation = BtnLocation.NextLine
+    private val ellipsizeStr = "\u2026"
 
     // 확대/축소시 TextView 에 실제로 표시할 Text
     private var displayColText: SpannableStringBuilder? = null
@@ -108,7 +132,7 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 expandBtnText = getString(R.styleable.ReadMoreView_expandBtnText)?: defaultExpBtnText
                 btnColor = getColor(R.styleable.ReadMoreView_btnColor, defaultBtnColor)
                 btnSizePx = getDimensionPixelSize(R.styleable.ReadMoreView_btnSize, textSize.toInt())
-
+                btnLocation = BtnLocation.parsing(getInt(R.styleable.ReadMoreView_btnLocation, defaultBtnLocationEnum))
                 recycle()
             }
         }
@@ -143,7 +167,13 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
             displayExpText = it
         }
 
-        val collapseLayout = getCollapseStaticLayout(originalText?: "", textWidth, colMaxLine)
+        val lastEllipsizeWidth = if (btnLocation is BtnLocation.NextLine) {
+            0
+        } else {
+            getEllipsizeWidth() + getColBtnTextWidth(expandBtnText, btnSizePx)
+        }
+
+        val collapseLayout = getCollapseStaticLayout(originalText?: "", textWidth, colMaxLine, lastEllipsizeWidth)
         val collapseContentText = "${collapseLayout.text}"
 
         // ellipsize 가 필요한 경우 추가 or 원본 (이모지가 삽입되는 경우 무조건 말줄임 표시 추가되어서 추가함)
@@ -169,6 +199,22 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
         this.isExpandable = isExpandable
     }
 
+    private fun getEllipsizeWidth(): Int {
+        val rect = Rect()
+        paint.getTextBounds(ellipsizeStr, 0, ellipsizeStr.length, rect)
+        return rect.width()
+    }
+
+    private fun getColBtnTextWidth(btn: String, sizePx: Int): Int {
+        val rect = Rect()
+        val paint = TextPaint().apply {
+            textSize = sizePx.toFloat()
+            typeface = paint.typeface
+        }
+        paint.getTextBounds(btn, 0, btn.length, rect)
+        return rect.width()
+    }
+
     private fun getExpandStaticLayout(text: CharSequence, textWidth: Int): StaticLayout {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return StaticLayout.Builder
@@ -180,11 +226,13 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
         return StaticLayout(text, paint, textWidth.coerceAtLeast(0), Layout.Alignment.ALIGN_NORMAL, lineSpacingMultiplier, lineSpacingExtra, true)
     }
 
-    private fun getCollapseStaticLayout(text: CharSequence, textWidth: Int, maxLine: Int): StaticLayout {
+    private fun getCollapseStaticLayout(text: CharSequence, textWidth: Int, maxLine: Int, ellipsizeWidth: Int): StaticLayout {
+        val ellipsizedWidth = textWidth - ellipsizeWidth
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return StaticLayout.Builder
                 .obtain(text, 0, text.length, paint, textWidth.coerceAtLeast(0))
                 .setEllipsize(TextUtils.TruncateAt.END)
+                .setEllipsizedWidth(ellipsizedWidth)
                 .setMaxLines(maxLine)
                 .setLineSpacing(lineSpacingExtra, lineSpacingMultiplier)
                 .build()
@@ -201,7 +249,7 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
             lineSpacingExtra,
             true,
             TextUtils.TruncateAt.END,
-            textWidth.coerceAtLeast(0),
+            ellipsizedWidth,
         )
     }
 
@@ -219,26 +267,37 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
         return SpannableStringBuilder().apply {
             append(content)
 
-            if (btnText.isNotEmpty() && isExpandable) {
-                append("\n")
-                append(btnText)
-
-                val btnStart = this.length - btnText.length
-                val btnEnd = btnStart + btnText.length
-
-                setSpan(UnderlineSpan(), btnStart, btnEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                setSpan(AbsoluteSizeSpan(btnSizePx), btnStart, btnEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                setSpan(object: ClickableSpan() {
-                    override fun onClick(widget: View) {
-                        toggle()
-                    }
-
-                    override fun updateDrawState(ds: TextPaint) {
-                        super.updateDrawState(ds)
-                        ds.color = btnColor
-                    }
-                }, btnStart, btnEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            if (btnText.isEmpty() || !isExpandable) {
+                return@apply
             }
+
+            if (btnLocation is BtnLocation.NextLine) {
+                append("\n")
+            }
+
+            append(btnText)
+
+            val btnStart = this.length - btnText.length
+            val btnEnd = btnStart + btnText.length
+
+            setSpan(UnderlineSpan(), btnStart, btnEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(
+                AbsoluteSizeSpan(btnSizePx),
+                btnStart,
+                btnEnd,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            setSpan(object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                    toggle()
+                }
+
+                override fun updateDrawState(ds: TextPaint) {
+                    super.updateDrawState(ds)
+                    ds.color = btnColor
+                }
+            }, btnStart, btnEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
         }
     }
 
