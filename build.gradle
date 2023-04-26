@@ -11,8 +11,6 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
 }
 
-group = 'com.github.jeonjungin'
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
