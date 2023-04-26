@@ -44,8 +44,8 @@ afterEvaluate {
                 from components.release
 
                 groupId = 'com.github.jeonjungin'
-                artifactId = ''
-                version = 'v1.0.3'
+                artifactId = 'ReadMore'
+                version = '1.0.4'
             }
         }
     }
