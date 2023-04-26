@@ -31,6 +31,17 @@ dependencies {
   
 ```
 
+## Realese
+
+### V1.0.1
+
+- 확장/축소 버튼의 위치를 변경할 수 있는 기능 추가 (xml 속성 btnLocation 추가)
+
+### V1.0.0
+
+- 최초 배포
+
+
 ## xml
 
 ```xml
@@ -61,7 +72,7 @@ ReadMoreView 내에 표시되는 '축소' 기능 버튼의 String을 정의합�
 
 ReadMoreView 내에 표시되는 '확장' 기능 버튼의 String을 정의합니다.
 단, 빈 String 을 입력하는 경우 표시되지 않습니다.
-기본값은 '기더보기' 입니다.
+기본값은 '더보기' 입니다.
 
 ```xml
   app:expandBtnText="확장"
@@ -81,6 +92,15 @@ ReadMoreView 내에 표시되는 '축소', '확장' 기능 버튼의 size를 정
 ```xml
   app:btnSize="15sp"
 ```
+
+### btnLocation
+
+ReadMoreView 내에 표시되는 '축소', '확장' 기능 버튼의 위치를 지정합니다.
+기본값은 'nextLine' 입니다.
+```xml
+  app:btnLocation="end"
+```
+
 
 ### colMaxLines
 
