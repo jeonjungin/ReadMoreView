@@ -33,15 +33,19 @@ dependencies {
 
 ## Release
 
-## v1.0.2
+### v1.0.4
+
+- jitpack 배포 버그 수정
+
+### ~~v1.0.2~~
 
 - xml btnLocation 속성 값 변경 (nextLeft -> nextLine)
 
-### v1.0.1
+### ~~v1.0.1~~
 
 - 확장/축소 버튼의 위치를 변경할 수 있는 기능 추가 (xml 속성 btnLocation 추가)
 
-### v1.0.0
+### ~~v1.0.0~~
 
 - 최초 배포
 
