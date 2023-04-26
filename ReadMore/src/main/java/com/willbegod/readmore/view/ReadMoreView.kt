@@ -28,26 +28,6 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     /**
-     * 확장/축소 버튼 위치 Type
-     *
-     * */
-    sealed class BtnLocation {
-        // 마지막 글자 우측 위치
-        object End: BtnLocation()
-
-        // 다음 줄 위치
-        object NextLine: BtnLocation()
-
-        companion object {
-            internal fun parsing(enumType: Int) = when (enumType) {
-                1 -> End
-                else -> NextLine
-            }
-
-        }
-    }
-
-    /**
      * 확장/축소 상태
      *
      * 상태 변경시 별다른 계산 없이 기 저장된 [displayColText] [displayExpText] 를 text에 바로 적용한다.
@@ -347,5 +327,25 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     private enum class MoreState {
         COLLAPSED, EXPANDED
+    }
+
+    /**
+     * 확장/축소 버튼 위치 Type
+     *
+     * */
+    sealed class BtnLocation {
+        // 마지막 글자 우측 위치
+        object End: BtnLocation()
+
+        // 다음 줄 위치
+        object NextLine: BtnLocation()
+
+        companion object {
+            internal fun parsing(enumType: Int) = when (enumType) {
+                1 -> End
+                else -> NextLine
+            }
+
+        }
     }
 }

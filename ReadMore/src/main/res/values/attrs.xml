@@ -11,7 +11,7 @@
             <enum
                 name="end" value="1"/>
             <enum
-                name="nextLeft" value="2"/>
+                name="nextLine" value="2"/>
         </attr>
     </declare-styleable>
 </resources>
