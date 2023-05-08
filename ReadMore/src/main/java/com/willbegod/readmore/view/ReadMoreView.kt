@@ -155,19 +155,7 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
         val collapseLayout = getCollapseStaticLayout(originalText?: "", textWidth, colMaxLine, lastEllipsizeWidth)
         val collapseContentText = "${collapseLayout.text}"
-
-        // ellipsize 가 필요한 경우 추가 or 원본 (이모지가 삽입되는 경우 무조건 말줄임 표시 추가되어서 추가함)
-        val ellipsizedOrNotText = if (isExpandable) {
-            val totalLineWidth = (0 until colMaxLine).sumOf {
-                collapseLayout.getLineWidth(it).toInt()
-            }.toFloat()
-
-            TextUtils.ellipsize(collapseContentText, paint, totalLineWidth, TextUtils.TruncateAt.END)
-        } else {
-            collapseContentText
-        }
-
-        val collapseSpannable = getContentSpannable(ellipsizedOrNotText.toString(), expandBtnText, isExpandable).also {
+        val collapseSpannable = getContentSpannable(collapseContentText, expandBtnText, isExpandable).also {
             displayColText = it
         }
 

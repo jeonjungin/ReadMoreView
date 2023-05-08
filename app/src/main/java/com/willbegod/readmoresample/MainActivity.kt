@@ -7,14 +7,14 @@ import com.willbegod.readmoresample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(LayoutInflater.from(this), null, false).also {
-            setContentView(it.root)
-        }
+        setContentView(binding.root)
 
         setCurrentReadMoreStateText()
         setToggleBtnClickListener()
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private fun setCurrentReadMoreStateText() {
         binding.tvReadMoreState1.text = "ReadMoreView 1 : ${getReadMoreStateText(binding.rmvNormal.isExpanded)}"
         binding.tvReadMoreState2.text = "ReadMoreView 2 : ${getReadMoreStateText(binding.rmvLocationEnd.isExpanded)}"
-        binding.tvReadMoreState2.text = "ReadMoreView 2 : ${getReadMoreStateText(binding.rmvToButton.isExpanded)}"
+        binding.tvReadMoreState3.text = "ReadMoreView 3 : ${getReadMoreStateText(binding.rmvToButton.isExpanded)}"
     }
 
     private fun setToggleBtnClickListener() {
