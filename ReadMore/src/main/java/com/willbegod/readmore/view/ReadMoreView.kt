@@ -121,10 +121,6 @@ class ReadMoreView @JvmOverloads constructor(context: Context, attrs: AttributeS
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val givenWidth = MeasureSpec.getSize(widthMeasureSpec)
         val textWidth = givenWidth - compoundPaddingStart - compoundPaddingEnd
-        if (textWidth == oldTextWidth) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-            return
-        }
 
         updateDisplayText(textWidth)
 
